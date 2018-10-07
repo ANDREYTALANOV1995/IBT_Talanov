@@ -6,6 +6,7 @@ from pybrain.supervised.trainers import RPropMinusTrainer
 #тут создаем структуру для обучения и набор данных для обучения
 ds = SupervisedDataSet(5, 1)
 
+ds.addSample((1, 0, 0, 0, 1), (0,))     # правило для числа 0
 ds.addSample((0, 1, 0, 0, 1), (1,))     # правило для цифры 1
 ds.addSample((1, 0, 0, 1, 1), (2,))     # правило для цифры 2
 ds.addSample((1, 1, 1, 1, 0), (3,))     # правило для цифры 3  
