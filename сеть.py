@@ -1,31 +1,31 @@
 from pybrain.tools.shortcuts import buildNetwork
-from pybrain.structure import TanhLayer
+from PIL import Image
 from pybrain.datasets import SupervisedDataSet
 from pybrain.supervised.trainers import RPropMinusTrainer
- 
-#тут создаем структуру для обучения и набор данных для обучения
-ds = SupervisedDataSet(5, 1)
+import numpy as np
+import os
 
-ds.addSample((1, 0, 0, 0, 1), (0,))     # правило для числа 0
-ds.addSample((0, 1, 0, 0, 1), (1,))     # правило для цифры 1
-ds.addSample((1, 0, 0, 1, 1), (2,))     # правило для цифры 2
-ds.addSample((1, 1, 1, 1, 0), (3,))     # правило для цифры 3  
-ds.addSample((0, 0, 1, 0, 1), (4,))     # правило для цифры 4
-ds.addSample((1, 0, 1, 0, 0), (5,))     # правило для цифры 5
-ds.addSample((0, 1, 1, 0, 0), (6,))     # правило для цифры 6
-ds.addSample((1, 1, 0, 0, 0), (7,))     # правило для цифры 7
-ds.addSample((1, 0, 1, 0, 1), (8,))     # правило для цифры 8
-ds.addSample((1, 0, 1, 1, 1), (9,))     # правило для числа 9
+files = os.listdir("img/")
 
-# создаем нейросеть с 5 входами, 9 скрытых слоя и 1 выход
-net = buildNetwork(5, 9, 1,)
+ds = SupervisedDataSet(200*60*3, 1)
+
+
+for i in range(len(files)):
+    img = Image.open("img/"+files[i])
+    data = np.array(img)
+    data = data.reshape(-1)
+    ds.addSample((data), (files[i][0:6]))
+
+img1 = Image.open("660022.png")
+
+data1 = np.array(img)
+data1 = data1.reshape(-1)
+
+net = buildNetwork(200*60*3, 1)
  
-# указываем какую сеть и какими данными обучать
 trainer = RPropMinusTrainer(net)
 trainer.setData(ds)
- 
-# обучаем сеть
+
 trainer.trainEpochs(100)
- 
-# подаем на вход контрольные точки цифры 9
-print(net.activate([1,0,1,1,1]))
+
+print(net.activate(data1))
