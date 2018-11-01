@@ -49,14 +49,14 @@ def calculation(a,b):
         i=i+1
     return i/6*100
 sum = 0
-for j in range(len(files1)):
-    img3 = Image.open("test_img/" + files1[j])
+for fname in files1:
+    img3 = Image.open("test_img/%s" % fname)
     data6 = np.array(img3)
     data6 = data6.reshape(-1)
-    print("Результат распознования равен", np.round(net.activate(data6)))
-    sum = sum + calculation(np.round(net.activate(data6)), files1[j][0:6])
+    print(fname, "Результат распознования равен", np.round(net.activate(data6)))
+    sum += calculation(np.round(net.activate(data6)), fname.split('.')[0])
 
-print(sum/len(files1),'%')
+print('%s' % (sum / 3))
 
 
 
