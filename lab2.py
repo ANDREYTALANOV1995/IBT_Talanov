@@ -11,3 +11,4 @@ res = nltk.Text(word_tokenize(res.text))
 res = res.concordance('ФАНТАСТИКА')
 
 print(res)
+
