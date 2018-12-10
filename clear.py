@@ -1,8 +1,27 @@
-import nltk
+
+#nltk.download('punkt')
+#nltk.download('stopwords')
+
 import string
 from nltk.corpus import stopwords
 import numpy as np
+import nltk
+import requests
+import bs4
 
+s_fan1 = requests.get('http://lib.ru/SOCFANT/HOBANE/01-68.txt')
+s_fan2 = requests.get('http://lib.ru/ADAMS/hitch_3_sp.txt')
+s_fan3 = requests.get('http://lib.ru/INOFANT/BINEM/03-63.txt')
+tales1 = requests.get('http://lib.ru/TALES/alenkij.txt')
+tales2 = requests.get('http://lib.ru/DETEKTIWY/AJRISH/windows.txt')
+
+f_1 = bs4.BeautifulSoup(s_fan1.text, "html.parser")
+f_2 = bs4.BeautifulSoup(s_fan2.text, "html.parser")
+f_3 = bs4.BeautifulSoup(s_fan2.text, "html.parser")
+f_4 = bs4.BeautifulSoup(tales1.text, "html.parser")
+f_5 = bs4.BeautifulSoup(tales2.text, "html.parser")
+print(f_5.getText())
+'''''''''
 file = open('book/text6.txt')
 book1 = file.read()  # Хоббит
 file = open('book/text1.txt')
@@ -86,3 +105,24 @@ print(isFan(book6))
 print("________________________")
 
 print(isFan(book5))
+
+print("_________с сайта lib.ru_______________")
+
+print(isFan(f_1.getText()))
+
+print("________________________")
+
+print(isFan(f_2.getText()))
+
+print("________________________")
+
+print(isFan(f_3.getText()))
+
+print("________________________")
+
+print(isFan(f_4.getText()))
+
+print("________________________")
+
+print(isFan(f_5.getText()))
+'''''''''
