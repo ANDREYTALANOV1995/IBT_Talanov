@@ -20,8 +20,8 @@ f_2 = bs4.BeautifulSoup(s_fan2.text, "html.parser")
 f_3 = bs4.BeautifulSoup(s_fan2.text, "html.parser")
 f_4 = bs4.BeautifulSoup(tales1.text, "html.parser")
 f_5 = bs4.BeautifulSoup(tales2.text, "html.parser")
-print(f_5.getText())
-'''''''''
+
+
 file = open('book/text6.txt')
 book1 = file.read()  # Хоббит
 file = open('book/text1.txt')
@@ -125,4 +125,3 @@ print(isFan(f_4.getText()))
 print("________________________")
 
 print(isFan(f_5.getText()))
-'''''''''
