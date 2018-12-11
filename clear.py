@@ -9,6 +9,9 @@ import nltk
 import requests
 import bs4
 
+# for book in books:
+#parsers.append(BS(get().content))
+
 s_fan1 = requests.get('http://lib.ru/SOCFANT/HOBANE/01-68.txt')
 s_fan2 = requests.get('http://lib.ru/ADAMS/hitch_3_sp.txt')
 s_fan3 = requests.get('http://lib.ru/INOFANT/BINEM/03-63.txt')
@@ -106,7 +109,7 @@ print("________________________")
 
 print(isFan(book5))
 
-print("_________с сайта lib.ru_______________")
+print("_________с сайта lib.ru______________")
 
 print(isFan(f_1.getText()))
 
