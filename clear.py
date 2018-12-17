@@ -11,19 +11,31 @@ import bs4
 
 # for book in books:
 #parsers.append(BS(get().content))
+import re
 
-s_fan1 = requests.get('http://lib.ru/SOCFANT/HOBANE/01-68.txt')
-s_fan2 = requests.get('http://lib.ru/ADAMS/hitch_3_sp.txt')
-s_fan3 = requests.get('http://lib.ru/INOFANT/BINEM/03-63.txt')
-tales1 = requests.get('http://lib.ru/TALES/alenkij.txt')
-tales2 = requests.get('http://lib.ru/DETEKTIWY/AJRISH/windows.txt')
+ # поиск по сайту
+url = 'http://fan.lib.ru/'
 
-f_1 = bs4.BeautifulSoup(s_fan1.text, "html.parser")
-f_2 = bs4.BeautifulSoup(s_fan2.text, "html.parser")
-f_3 = bs4.BeautifulSoup(s_fan2.text, "html.parser")
-f_4 = bs4.BeautifulSoup(tales1.text, "html.parser")
-f_5 = bs4.BeautifulSoup(tales2.text, "html.parser")
+s_fan1 = requests.get(url)
 
+result = re.findall(r'<a href=.*?a>', s_fan1.text)
+
+res234 = [s for s in result if "Фэнтези" in s]
+
+res234 = re.findall(r'\/.*shtml', res234[0])
+
+s_fan2 = requests.get(url+res234[0])
+
+result2 = re.findall(r'\/\S*shtml', s_fan2.text)
+
+
+
+
+
+#s_fan1 = requests.get('http://lib.ru/SOCFANT/HOBANE/01-68.txt')
+
+
+# print(f_1)
 
 file = open('book/text6.txt')
 book1 = file.read()  # Хоббит
@@ -99,6 +111,8 @@ def isFan(token):
     return res
 
 
+print("_________Тренеровочная выборка______________")
+
 print(isFan(book4))
 
 print("________________________")
@@ -111,20 +125,11 @@ print(isFan(book5))
 
 print("_________с сайта lib.ru______________")
 
-print(isFan(f_1.getText()))
+for re in result2:
+    link_f = url+re
+    f_b = requests.get(link_f)
+    op = bs4.BeautifulSoup(f_b.text, "html.parser").getText()
+    if isFan(op)=="true":
+        print('фантастика=',link_f)
+        print("________________________")
 
-print("________________________")
-
-print(isFan(f_2.getText()))
-
-print("________________________")
-
-print(isFan(f_3.getText()))
-
-print("________________________")
-
-print(isFan(f_4.getText()))
-
-print("________________________")
-
-print(isFan(f_5.getText()))
