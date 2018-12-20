@@ -110,7 +110,7 @@ def isFan(token):
         else:
             mat.append(0)
 
-    return sum(mat) > 16
+    return sum(mat)/len(res)
 
 def isCyb(token):
     token = tokenize_me(token)
@@ -121,19 +121,22 @@ def isCyb(token):
         else:
             mat.append(0)
 
-    return sum(mat) > 16
+    return sum(mat)/len(res)
+
+print('хоббит-', isFan(book1)*100 ,'%')
 
 for i in range(10):
     f_b = requests.get(link[i])
     op = bs4.BeautifulSoup(f_b.text, "html.parser").getText()
 
     print(link[i])
-    print(name[i])
+    print('Экспертное мнение|', name[i])
 
     if isFan(op):
-        print("программа считает, что это Фэнтези")
+        print("программа считает, что это Фэнтези|", round(isFan(op)*100), '%')
     if isCyb(op):
-        print("программа считает, что это киберпанк")
+        print("программа считает, что это киберпанк|", round(isCyb(op)*100), '%')
+
 
     print("________________________")
 
