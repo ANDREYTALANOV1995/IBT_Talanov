@@ -57,6 +57,8 @@ sw = nltk.word_tokenize(stop_words)
 stop_words = stopwords.words('russian')
 stop_words.extend(sw)
 
+#функция для получение 150 самых распространеных слов
+
 def tokenize_me(file_text):
     res = []
 
@@ -79,12 +81,15 @@ def tokenize_me(file_text):
 
     return res
 
+#------------------------получаем эталон из популярных книг
 
 data1 = np.array(tokenize_me(book1))
 data2 = np.array(tokenize_me(book2))
 data3 = np.array(tokenize_me(book3))
 data5 = np.array(tokenize_me(book5))
 data6 = np.array(tokenize_me(book6))
+
+
 
 res = []
 res2 = []
@@ -101,6 +106,10 @@ for data in np.intersect1d(data6, data5):
 res = set(res)
 res2 = set(res2)
 
+#---------------------------------------------------------
+
+# функция для проверки входящего текста по эталону фентези
+
 def isFan(token):
     token = tokenize_me(token)
     mat = []
@@ -112,6 +121,8 @@ def isFan(token):
 
     return sum(mat)/len(res)
 
+# функция для проверки входящего текста по эталону киберпанка
+
 def isCyb(token):
     token = tokenize_me(token)
     mat = []
@@ -121,7 +132,7 @@ def isCyb(token):
         else:
             mat.append(0)
 
-    return sum(mat)/len(res)
+    return sum(mat)/len(res2)
 
 print('хоббит-', isFan(book1)*100 ,'%')
 
